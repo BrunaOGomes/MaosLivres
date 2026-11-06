@@ -1,0 +1,16 @@
+# Ambiente virtual
+venv/
+
+# Modelo do MediaPipe (baixado automaticamente na primeira execucao)
+models/
+
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Resultados do teste de validacao
+resultados_validacao.csv
+
+# Videos de gravacao do pitch
+*.mp4
+*.mkv
