@@ -38,6 +38,7 @@ class Teste:
     """Guarda o estado do teste e decide o que cada clique significa."""
 
     def __init__(self, n_alvos=N_ALVOS):
+        """Prepara uma rodada: zera os contadores e sorteia o primeiro alvo."""
         self.n_alvos = n_alvos
         self.acertos = 0
         self.erros = 0
@@ -49,6 +50,9 @@ class Teste:
         self.novo_alvo(time.perf_counter())
 
     def novo_alvo(self, agora):
+        """Sorteia a posição do próximo alvo, a pelo menos 200 pixels do anterior.
+        A distância mínima evita que dois alvos saiam quase no mesmo lugar, o que
+        deixaria o tempo medido artificialmente curto."""
         anterior = self.alvo
         while True:                      # sorteia posição longe do alvo anterior
             x = random.randint(RAIO + 10, LARGURA - RAIO - 10)
@@ -77,10 +81,12 @@ class Teste:
             self.erros += 1
 
     def taxa_acerto(self):
+        """Porcentagem de cliques que acertaram o alvo: acertos / total de cliques."""
         total = self.acertos + self.erros
         return 100.0 * self.acertos / total if total else 0.0
 
     def tempo_medio(self):
+        """Média de segundos que a pessoa levou para acertar cada alvo."""
         return float(np.mean(self.tempos)) if self.tempos else 0.0
 
 
@@ -94,6 +100,9 @@ def mouse_click(event, x, y, flags, param):
 
 
 def desenhar(t):
+    """Monta a imagem da janela de teste e devolve pronta para o cv2.imshow.
+    Durante a rodada: o alvo verde e o painel com alvo atual, erros e tempo.
+    Ao terminar: o resumo com acertos, taxa de acerto e tempos."""
     tela = np.full((ALTURA, LARGURA, 3), 30, dtype="uint8")
     if not t.terminou:
         cv2.circle(tela, t.alvo, RAIO, (0, 200, 0), -1)
@@ -119,6 +128,9 @@ def desenhar(t):
 
 
 def salvar_csv(t, participante, modo):
+    """Acrescenta uma linha de resultado ao resultados_validacao.csv.
+    Abre em modo 'a' (append) para não apagar as rodadas anteriores, e escreve
+    o cabeçalho só se o arquivo ainda não existir."""
     novo = not ARQUIVO_CSV.exists()
     with open(ARQUIVO_CSV, "a", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -132,6 +144,12 @@ def salvar_csv(t, participante, modo):
 
 
 def main():
+    """Programa principal do teste:
+      1. pergunta o nome do participante e o modo (rosto ou mouse);
+      2. cria a rodada e registra o callback de clique do mouse (Lab11);
+      3. fica redesenhando a janela até a pessoa apertar ESC;
+      4. ao sair, salva no CSV se o teste foi concluído.
+    """
     global teste
     participante = input("Nome do participante: ").strip() or "anonimo"
     modo = input("Modo (rosto / mouse): ").strip().lower() or "rosto"

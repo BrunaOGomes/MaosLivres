@@ -1,4 +1,4 @@
-# Pitch + Gravação — CitizenTech: **MãosLivres**
+ # Pitch + Gravação — CitizenTech: **MãosLivres**
 
 > Os slides prontos estão em **`MaosLivres_Pitch.pptx`** (7 slides, com roteiro nas notas de cada slide). "MãosLivres" é um nome sugerido: se trocarem, troquem também no PPT, no vídeo e no PDF.
 
@@ -23,7 +23,7 @@
 
 **Problema:** mouse e teclado exigem as mãos. O Censo 2022 do IBGE registrou **2,7 milhões de pessoas com muita dificuldade ou impossibilidade de pegar objetos pequenos** (função dos membros superiores). O IBGE **não mede "ausência de braços" isoladamente**, então esse é o dado oficial mais próximo: digam isso se perguntarem. Além disso, só **29%** das pessoas com deficiência de 14 anos ou mais estavam ocupadas em 2022.
 
-**Solução:** a webcam do notebook vira mouse e teclado. Mover a cabeça move o cursor; fechar os olhos clica (0,5 s = clique, mais de 1,2 s = duplo clique); piscar com um olho só faz clique direito ou liga a rolagem; abrir a boca abre o teclado virtual do Windows para digitar; levantar as sobrancelhas arrasta; o beijinho pausa tudo.
+**Solução:** a webcam do notebook vira mouse. Mover a cabeça move o cursor; fechar os dois olhos por meio segundo e abrir faz o clique; piscar só com o olho esquerdo liga e desliga a rolagem da página; levantar as sobrancelhas arrasta janelas; o beijinho pausa tudo para a pessoa conversar sem mexer no cursor.
 
 **Como funciona:** webcam → OpenCV → MediaPipe (478 pontos do rosto) → EAR + calibração individual + suavização → PyAutoGUI controla o mouse do Windows. Funciona em qualquer programa.
 
@@ -40,11 +40,11 @@
 
 **Como medir o impacto:** taxa de acerto e tempo por alvo (`teste_validacao.py`), tempo de calibração (3 s), custo de hardware adicional (R$ 0). Futuro: usuários atendidos e satisfação, com centros de reabilitação.
 
-**Como ampliar:** instalador `.exe`, voz integrada, teclado virtual próprio, parcerias com associações e centros de reabilitação, código aberto.
+**Como ampliar:** teclado próprio do projeto (ver limitações), instalador `.exe`, voz integrada, suporte a múltiplos monitores, parcerias com associações e centros de reabilitação, código aberto.
 
 **Privacidade e inclusão:** processamento 100% local, sem gravar ou enviar imagens; calibração individual; só uma webcam comum.
 
-**Limitações (falem, passa credibilidade):** precisa de boa luz frontal; ainda não validado com pessoas sem braços; movimentos involuntários da cabeça podem exigir ajuste; digitar texto longo no teclado virtual é lento.
+**Limitações (falem, passa credibilidade):** precisa de boa luz frontal; ainda não validado com pessoas sem braços; movimentos involuntários da cabeça podem exigir ajuste; alcança só o monitor principal; **não digita texto** — testamos e comprovamos que o Windows descarta cliques de programa no teclado virtual (`osk.exe`), por privilégio de UIAccess, e o caminho é o projeto desenhar o próprio teclado e enviar as teclas com `pyautogui.press()`. O detalhamento dos testes está na seção 7 do `passo_a_passo.md`: se o professor perguntar "e para escrever?", a resposta está lá.
 
 ---
 
@@ -56,7 +56,7 @@ Cerca de 150 palavras por minuto. **Treinem com cronômetro.** `[DEMO]` = tela m
 |---|---|---|
 | **0:00–0:20** | 1. Abertura | "Imagine acordar amanhã e não conseguir segurar um mouse. O computador continua ali: a escola, o trabalho, os serviços. Mas a porta de entrada fechou. O Censo 2022 do IBGE registrou **2,7 milhões de brasileiros** com muita dificuldade, ou sem conseguir, usar as mãos para pegar objetos pequenos." |
 | **0:20–0:50** | 2. Problema | "Quem não tem braços, ou não os usa, depende de outra pessoa até para tarefas simples no computador. E só **29%** das pessoas com deficiência em idade de trabalhar estavam ocupadas em 2022. O acesso digital é uma das portas que precisam estar abertas." |
-| **0:50–1:35** | 3. Solução **[DEMO]** | "Apresentamos o **MãosLivres**: a webcam do notebook vira mouse e teclado. Eu movo a cabeça, e o cursor acompanha. Fecho os olhos por meio segundo, e é um clique; um pouco mais, e é um duplo clique. Pisco com um olho só: clique direito, ou rolo a página. Abro a boca, e o teclado virtual aparece para eu digitar. Levanto as sobrancelhas para arrastar uma janela. E com um beijinho eu pauso tudo para conversar. Uma piscada normal não clica: o sistema aprende o seu rosto nos três primeiros segundos." |
+| **0:50–1:35** | 3. Solução **[DEMO]** | "Apresentamos o **MãosLivres**: a webcam do notebook vira mouse. Eu movo a cabeça, e o cursor acompanha, ponto por ponto. Fecho os dois olhos por meio segundo e abro: clique. Pisco só com o olho esquerdo e a página começa a rolar com a inclinação da minha cabeça; pisco de novo e volto ao cursor. Levanto as sobrancelhas para arrastar uma janela, e levanto outra vez para soltar. E com um beijinho eu pauso tudo, para conversar sem o cursor sair andando pela tela. Uma piscada normal não clica: o sistema aprende o seu rosto nos três primeiros segundos e se calibra para ele." |
 | **1:35–2:05** | 4. Valor e impacto | "Sem hardware novo, sem internet e sem enviar imagem para nenhuma nuvem: tudo roda no próprio notebook. Testamos com **[N] pessoas**: **[X]%** de acerto e **[Y] segundos** por alvo. Ainda não testamos com pessoas sem braços, e esse é o nosso próximo passo, com centros de reabilitação. Contribuímos com os ODS 10, 3, 4 e 9." |
 | **2:05–2:35** | 5. Tecnologia | "Usamos Python, OpenCV e MediaPipe para achar 478 pontos no rosto. Calculamos a abertura dos olhos com o EAR, calibrada para cada pessoa, suavizamos o movimento e controlamos o mouse do Windows com PyAutoGUI. Por isso funciona em qualquer programa." |
 | **2:35–2:50** | 6. Time | "Somos **[nomes]**, alunos do 4º semestre de Sistemas de Informação da FIAP." |
@@ -67,14 +67,14 @@ Cerca de 150 palavras por minuto. **Treinem com cronômetro.** `[DEMO]` = tela m
 **Dicas de fala:** olhem para a câmera na abertura e no encerramento; pausa curta depois do dado de impacto; falem um pouco mais devagar do que parece natural. Se passar de 3:15, encurtem o slide 5, nunca a demo.
 
 **Roteiro da demo (≈ 45 s):**
-1. Mover o cursor só com a cabeça, sem tocar no mouse.
-2. Clicar 2 ou 3 alvos fechando os olhos (mostre a barra mudando de cor).
-3. Piscar normalmente **sem** clicar (prova que não confunde).
-4. Duplo clique numa pasta.
-5. Wink esquerdo, rolar uma página, wink esquerdo de novo.
-6. **Abrir a boca**: o teclado virtual aparece; digitar uma palavra (dica: ative o modo "Passar o mouse sobre as teclas" nas Opções do teclado para digitar só movendo a cabeça).
-7. **Levantar as sobrancelhas**, arrastar uma janela, levantar de novo para soltar.
-8. **Beijinho** para pausar antes de voltar a falar com a câmera.
+1. Mover o cursor só com a cabeça, sem tocar no mouse (deixem as mãos visíveis fora do teclado: é a prova visual mais forte).
+2. Clicar 2 ou 3 alvos fechando os olhos (mostre a barra "Clique" ficando verde).
+3. Piscar normalmente **sem** clicar (prova que não confunde piscada com comando).
+4. Wink esquerdo, rolar uma página inclinando a cabeça, wink esquerdo de novo para sair.
+5. **Levantar as sobrancelhas**, arrastar uma janela pela tela, levantar de novo para soltar.
+6. **Beijinho** para pausar antes de voltar a falar com a câmera.
+
+Dica: o `teste_validacao.py` (`validar.bat`) é um ótimo plano de fundo para o item 2, porque os alvos verdes deixam óbvio que o clique acertou. E ele já gera os números do slide 4.
 
 **Atenção na gravação:** enquanto vocês narram, a boca se mexe e a cabeça também. Façam a demo **narrando por cima depois** (grave a demo em silêncio e regrave a voz) ou use o beijinho para pausar enquanto falam. Comecem a demo só depois da calibração (rosto relaxado, boca fechada).
 
