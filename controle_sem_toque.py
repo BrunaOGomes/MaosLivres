@@ -12,7 +12,6 @@ Solução: a webcam do notebook vira mouse, usando só a CABEÇA e o ROSTO.
   Fechar os 2 olhos entre 0,5 s e 3,0 s
         e abrir ........................... CLIQUE
         (mais de 3,0 s = nada: dá para descansar os olhos)
-  Fechar só o olho ESQUERDO por 0,6 s ..... liga/desliga MODO ROLAGEM
         (no modo rolagem: cabeça p/ cima = sobe a página, p/ baixo = desce)
   LEVANTAR AS SOBRANCELHAS por 0,7 s ...... liga/desliga ARRASTAR (segura o botão do mouse)
   BEIJINHO (bico) por 1,0 s ............... PAUSA/RETOMA tudo (para conversar sem mexer no cursor)
