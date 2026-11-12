@@ -1,0 +1,29 @@
+metrica,valor
+ear_a_repouso,0.2469
+ear_b_repouso,0.2482
+ear_a_limiar,0.1728
+ear_b_limiar,0.1737
+sobr_repouso,0.7426
+sobr_limiar,1.0926
+beijo_repouso,0.0403
+beijo_limiar,0.4903
+nariz_centro_x,0.5355
+nariz_centro_y,0.5456
+quadros_analisados,1785
+EAR_FATOR (limiar = % do repouso),0.7
+SOBRANCELHA_DELTA,0.35
+BEIJO_DELTA,0.45
+
+grupo,n,media,mediana,desvio,min,max
+EAR A (todos),1785,0.2630,0.2822,0.0660,0.0454,0.3503
+EAR A (olho aberto),1597,0.2837,0.2850,0.0263,0.1751,0.3503
+EAR A (olho fechado),188,0.0874,0.0825,0.0311,0.0454,0.1708
+EAR B (todos),1785,0.2515,0.2728,0.0721,0.0267,0.3381
+sobrancelha (todos),1785,0.5705,0.5398,0.1427,0.2784,0.9775
+sobrancelha (ativa),0,0.0000,0.0000,0.0000,0.0000,0.0000
+beijo (todos),1785,0.2556,0.1702,0.2848,0.0002,0.9622
+beijo (ativo),267,0.8914,0.9075,0.0750,0.4931,0.9622
+
+% quadros olho A fechado,10.5
+% quadros sobrancelha ativa,0.0
+% quadros beijo ativo,15.0

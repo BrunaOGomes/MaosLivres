@@ -1,16 +1,17 @@
 # Ambiente virtual
 venv/
 
-# Modelo do MediaPipe (baixado automaticamente na primeira execucao)
+# Modelo do MediaPipe (baixado automaticamente na primeira execucao, 3,6 MB)
 models/
 
 # Cache do Python
 __pycache__/
 *.pyc
 
-# Resultados do teste de validacao
-resultados_validacao.csv
-
 # Videos de gravacao do pitch
 *.mp4
 *.mkv
+
+# ATENCAO: resultados_validacao.csv e a pasta resultados/ NAO sao ignorados
+# de proposito. O enunciado exige que o repositorio contenha as visualizacoes
+# graficas, os indicadores de desempenho e as comprovacoes das metricas.
