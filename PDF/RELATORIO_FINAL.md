@@ -11,7 +11,7 @@
 | [Thiago Luiz Pereira] | [553720] |
 
 **Turma:** [Turma]
-**Repositório:** [URL do GitHub]
+**Repositório:** <https://github.com/BrunaOGomes/MaosLivres>
 
 ---
 
@@ -406,3 +406,37 @@ A decisão de projeto mais relevante foi **priorizar poucas funções que operam
 - KAZEMI, V.; SULLIVAN, J. **One Millisecond Face Alignment with an Ensemble of Regression Trees.** CVPR, 2014. (método do `shape_predictor_68` da dlib)
 - GOOGLE. **MediaPipe Face Landmarker.** Documentação da MediaPipe Tasks Vision API.
 - FIAP. **Global Solution 2026.2 — Tema CitizenTech.**
+
+---
+
+## 7. Anexo A — Evidências de funcionamento
+
+As capturas abaixo foram feitas durante a execução real do `controle_sem_toque.py`, com a janela de depuração da aplicação em primeiro plano. A janela mostra, sobrepostos ao vídeo da webcam: o **modo ativo** no topo, os valores de **EAR** de cada olho, a **barra de progresso do clique**, as **barras de sobrancelha e beijinho** com seus limiares, o contorno dos olhos (**verde** = aberto, **vermelho** = fechado) e o **ponto azul** sobre a ponta do nariz, que é o marcador que comanda o cursor.
+
+O código-fonte completo, os CSVs e os gráficos estão em: <https://github.com/BrunaOGomes/MaosLivres>
+
+### A.1 Calibração inicial
+
+*Figura 10 — `evidencias/01_calibracao.png`: tela de calibração dos primeiros 3 segundos. A aplicação pede rosto relaxado, olhos abertos e boca fechada, e a barra laranja mostra o progresso da coleta. Nesse intervalo são medidos o EAR de repouso de cada olho, o coeficiente de sobrancelha e de beijinho em repouso, e o centro do nariz. Os limiares passam a ser relativos a esses valores (70% do EAR de repouso, repouso + 0,35 para sobrancelha, repouso + 0,45 para beijinho), e é por isso que o sistema funciona com rostos diferentes, com óculos e em distâncias distintas da câmera, sem ajuste manual de código.*
+
+### A.2 Gesto de clique em andamento
+
+*Figura 11 — `evidencias/02_clique.png`: os dois olhos fechados, com EAR caindo para 0,078 e 0,085, contra um repouso próximo de 0,37. O contorno dos dois olhos fica **vermelho**, sinalizando olho fechado, e a barra "Clique" avança em **verde** enquanto a condição se mantém. O clique só é emitido quando os olhos reabrem dentro da janela de 0,5 a 3,0 segundos. Essa dupla condição é o que separa o gesto intencional da piscada natural, que dura cerca de 100 a 400 ms e nunca completa a barra, e também do descanso dos olhos acima de 3 segundos, que é descartado de propósito.*
+
+### A.3 Beijinho: pausa e retomada
+
+*Figura 12 — `evidencias/03_beijinho.png`: gesto de biquinho detectado pelo blendshape `mouthPucker` da MediaPipe. A barra "Beijo" em **rosa** cruzou o limiar e permaneceu acima dele por 1,0 segundo, o que dispara a pausa ou a retomada de todo o controle. Essa é a função de segurança do projeto: permite ao usuário conversar, se coçar ou se reposicionar sem que o cursor se mexa, e retomar com o mesmo gesto. Note que os olhos seguem com contorno **verde**, ou seja, o gesto da boca é reconhecido de forma independente do gesto dos olhos.*
+
+### A.4 Modo rolagem
+
+*Figura 13 — `evidencias/04_rolagem.png`: modo de rolagem ativo, indicado no topo da janela. Aqui a inclinação da cabeça para cima rola a página para cima e para baixo rola para baixo, em vez de mover o cursor. O olho esquerdo da tela aparece com contorno **vermelho**, ou seja, fechado, que é justamente o gesto que encerra o modo e devolve o controle ao cursor. Também fica visível a assimetria proposital do projeto: cada olho tem papel distinto, e o olho direito não dispara nada.*
+
+### A.5 Estado de repouso, com os limiares visíveis
+
+*Figura 14 — `evidencias/05_sobrancelha.png`: sobrancelhas levantadas, com a barra "Sobr." em **azul** preenchida acima do limiar. Mantido por 0,7 segundo, esse gesto liga e desliga o arrastar, equivalente a segurar o botão do mouse, usado para mover janelas e selecionar texto. Os olhos permanecem **verdes** e o EAR em 0,373 e 0,372, perto do valor de repouso, confirmando que levantar a sobrancelha não contamina a detecção de clique.*
+
+### A.6 Aplicação em execução no ambiente de desenvolvimento
+
+*Figura 15 — `evidencias/06_execucao.png`: a aplicação rodando a partir do `iniciar.bat`, com o terminal ao lado. O log mostra a inicialização do MediaPipe Face Landmarker com o delegate XNNPACK em CPU, sem GPU dedicada, e a linha `Calibrado! limiar olho A=0.150 | olho B=0.113`, que é a confirmação de que os limiares foram calculados a partir da calibração daquela sessão. No canto superior direito, a janela da câmera mostra o cursor sendo controlado sem uso das mãos.*
+
+---

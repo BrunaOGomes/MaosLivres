@@ -26,8 +26,22 @@ from pathlib import Path
 
 import markdown
 
-ENTRADA = Path("RELATORIO_FINAL.md")
-SAIDA = Path("RELATORIO_FINAL.html")
+AQUI = Path(__file__).resolve().parent      # pasta PDF/
+RAIZ = AQUI.parent                          # raiz do projeto
+
+
+def achar(relativo) -> Path:
+    """Procura o arquivo na pasta do script e depois na raiz do projeto.
+    Assim o script funciona rodando de dentro de PDF/ ou da raiz."""
+    for base in (AQUI, RAIZ):
+        caminho = base / relativo
+        if caminho.exists():
+            return caminho
+    return AQUI / relativo
+
+
+ENTRADA = achar("RELATORIO_FINAL.md")
+SAIDA = AQUI / "RELATORIO_FINAL.html"
 
 CSS = """
 @page { size: A4; margin: 18mm 16mm; }
@@ -106,10 +120,11 @@ PADRAO_FIGURA = re.compile(
 def imagem_base64(caminho: Path) -> str:
     """Le a imagem e devolve o conteudo como data URI, para embutir no HTML."""
     dados = base64.b64encode(caminho.read_bytes()).decode("ascii")
-    return f"data:image/png;base64,{dados}"
+    tipo = "jpeg" if caminho.suffix.lower() in (".jpg", ".jpeg") else "png"
+    return f"data:image/{tipo};base64,{dados}"
 
 
-CSV_GESTOS = Path("resultados/metricas_gestos_resumo.csv")
+CSV_GESTOS = achar("resultados/metricas_gestos_resumo.csv")
 MARCADOR_GESTOS = "<!-- TABELA_METRICAS_GESTOS -->"
 
 # Como cada chave do CSV aparece no relatorio: (chave, rotulo, casas decimais)
@@ -206,7 +221,7 @@ def main():
 
     def trocar(m):
         rotulo, caminho, legenda = m.group(1), m.group(2).strip(), m.group(3).strip()
-        arquivo = Path(caminho)
+        arquivo = achar(caminho)
         if arquivo.exists():
             embutidas.append(caminho)
             return (f'<figure><img src="{imagem_base64(arquivo)}" alt="{rotulo}">'
